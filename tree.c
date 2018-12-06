@@ -38,14 +38,26 @@ void insertTree(NODE ** ROOT, int data)
     }
 }
 
-void printInOrder(NODE ** ROOT)
+void printInorder(NODE ** ROOT)
 {
     if(*ROOT == NULL)
         return;
     
-    printInOrder(&(*ROOT)->leftChild);
+    printInorder(&(*ROOT)->leftChild);
     printf("%d ", (*ROOT)->data);
-    printInOrder(&(*ROOT)->rightChild);
+    printInorder(&(*ROOT)->rightChild);
+    
+}
+
+void printPreorder(NODE ** ROOT)
+{
+    if(*ROOT == NULL)
+        return;
+
+    printf("%d ", (*ROOT)->data);
+    printPreorder(&(*ROOT)->leftChild);
+    printPreorder(&(*ROOT)->rightChild);
+    
 }
 int main(void)
 {
@@ -62,6 +74,9 @@ int main(void)
         printf("The root's right is %d\n", ROOT->rightChild->data);
     }
 
-    printInOrder(&ROOT);
+    printInorder(&ROOT);
+    printf("\n");
+    printPreorder(&ROOT);
+    printf("\n");
     return 0;
 }
