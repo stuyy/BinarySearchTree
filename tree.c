@@ -59,6 +59,16 @@ void printPreorder(NODE ** ROOT)
     printPreorder(&(*ROOT)->rightChild);
     
 }
+
+void printPostorder(NODE ** ROOT)
+{
+    if(*ROOT == NULL)
+        return;
+    
+    printPostorder(&(*ROOT)->leftChild);
+    printPostorder(&(*ROOT)->rightChild);
+    printf("%d ", (*ROOT)->data);
+}
 int main(void)
 {
     NODE * ROOT = NULL;
@@ -77,6 +87,8 @@ int main(void)
     printInorder(&ROOT);
     printf("\n");
     printPreorder(&ROOT);
+    printf("\n");
+    printPostorder(&ROOT);
     printf("\n");
     return 0;
 }
