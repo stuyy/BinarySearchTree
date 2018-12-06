@@ -38,6 +38,7 @@ void insertTree(NODE ** ROOT, int data)
     }
 }
 
+// Inorder tree traversal. Prints Left, Root, Right.
 void printInorder(NODE ** ROOT)
 {
     if(*ROOT == NULL)
@@ -48,7 +49,7 @@ void printInorder(NODE ** ROOT)
     printInorder(&(*ROOT)->rightChild);
     
 }
-
+// Preorder Tree Traversal. Prints Root, left, Right.
 void printPreorder(NODE ** ROOT)
 {
     if(*ROOT == NULL)
@@ -60,6 +61,7 @@ void printPreorder(NODE ** ROOT)
     
 }
 
+// Postorder Tree Traversal. Prints Left, Right, Root.
 void printPostorder(NODE ** ROOT)
 {
     if(*ROOT == NULL)
@@ -69,6 +71,30 @@ void printPostorder(NODE ** ROOT)
     printPostorder(&(*ROOT)->rightChild);
     printf("%d ", (*ROOT)->data);
 }
+
+NODE * searchTree(NODE ** ROOT, int dataToFind)
+{
+    if(*ROOT == NULL)
+        return NULL;
+    
+    if((*ROOT)->data == dataToFind)
+        return *ROOT;
+    else {
+        // Check if the data to look for is in the left or right side of the BST.
+        if(dataToFind < (*ROOT)->data)
+        {
+            searchTree(&(*ROOT)->leftChild, dataToFind);
+        }
+        else
+            searchTree(&(*ROOT)->rightChild, dataToFind);
+            
+    }
+}
+void deleteNode(NODE ** ROOT, NODE * nodeToDelete)
+{
+
+}
+
 int main(void)
 {
     NODE * ROOT = NULL;
