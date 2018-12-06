@@ -82,17 +82,22 @@ NODE * searchTree(NODE ** ROOT, int dataToFind)
     else {
         // Check if the data to look for is in the left or right side of the BST.
         if(dataToFind < (*ROOT)->data)
-        {
             searchTree(&(*ROOT)->leftChild, dataToFind);
-        }
         else
             searchTree(&(*ROOT)->rightChild, dataToFind);
-            
     }
 }
-void deleteNode(NODE ** ROOT, NODE * nodeToDelete)
+void deleteNode(NODE ** ROOT, int data)
 {
-
+    NODE * nodeToDelete = searchTree(data);
+    if(nodeToDelete == NULL)
+    {
+        printf("Node was not found and could not delete from tree.\n");
+        return;
+    }
+    else {
+        
+    }
 }
 
 int main(void)
@@ -109,12 +114,10 @@ int main(void)
         printf("The root's left is %d\n", ROOT->leftChild->data);
         printf("The root's right is %d\n", ROOT->rightChild->data);
     }
-
-    printInorder(&ROOT);
-    printf("\n");
-    printPreorder(&ROOT);
-    printf("\n");
-    printPostorder(&ROOT);
-    printf("\n");
+    NODE * node = searchTree(&ROOT, 6);
+    if(node != NULL)
+        printf("%d was found.\n", node->data);
+    else
+        printf("Node not found.\n");
     return 0;
 }
