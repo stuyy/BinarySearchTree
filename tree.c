@@ -92,8 +92,17 @@ NODE * searchTree(NODE ** ROOT, int dataToFind)
 NODE * findMinimumNode(NODE ** ROOT)
 {
     NODE * tempNode = *ROOT;
-    while(tempNode->leftChild != NULL)
+    while(tempNode->leftChild != NULL) // Traverse Left Subtree until reach end.
         tempNode = tempNode->leftChild;
+    
+    return tempNode;
+}
+
+NODE * findMaxNode(NODE ** ROOT)
+{
+    NODE * tempNode = *ROOT;
+    while(tempNode->rightChild != NULL)
+        tempNode = tempNode->rightChild;
     
     return tempNode;
 }
