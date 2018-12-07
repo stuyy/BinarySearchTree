@@ -41,7 +41,6 @@ void insertTree(NODE ** ROOT, int data)
 // Inorder tree traversal. Prints Left, Root, Right.
 void printInorder(NODE ** ROOT)
 {
-    printf("Hello?\n");
     if(*ROOT == NULL)
         return;
     
@@ -108,24 +107,32 @@ void deleteNode(NODE ** ROOT, int data)
         // 3. Node we're deleting has 2 children.
         if(data == (*ROOT)->data)
         {
-            if((*ROOT)->leftChild == NULL && (*ROOT)->rightChild == NULL) // One Child
+            if((*ROOT)->leftChild == NULL && (*ROOT)->rightChild == NULL) // Case #1: Current Root of Subtree has NO Children.
             {
                 free(*ROOT);
                 *ROOT = NULL;
                 return;
             }
+            else if((*ROOT)->leftChild != NULL && (*ROOT)->rightChild == NULL) // Case #2: Left Child Exists, Right Child Does not.
+            {
+                
+            }
+            else if(((*ROOT)->rightChild == NULL) && (*ROOT)->leftChild != NULL) // Case #2: Right Child Exists, Left Child Does not.
+            {
+                
+            }
         }
         else if(data < (*ROOT)->data)
         {
             if((*ROOT)->leftChild != NULL)
-                deleteNode((*ROOT)->leftChild, data);
+                deleteNode(&(*ROOT)->leftChild, data);
             else
                 return;
         }
         else if(data > (*ROOT)->data)
         {
             if((*ROOT)->rightChild != NULL)
-                deleteNode((*ROOT)->rightChild, data);
+                deleteNode(&(*ROOT)->rightChild, data);
             else
                 return;
         }
@@ -140,8 +147,7 @@ int main(void)
     insertTree(&ROOT, 2);
     insertTree(&ROOT, 6);
 
-    deleteNode(&ROOT, 6);
-    deleteNode(&ROOT, 2);
+    deleteNode(&ROOT, 4);
 
     printInorder(&ROOT);
     return 0;
