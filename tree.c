@@ -107,9 +107,31 @@ NODE * findMaxNode(NODE ** ROOT)
     return tempNode;
 }
 
-NODE * findParent()
+NODE * findParent(NODE ** currNode, int nodeToFind)
 {
+    if(currNode == NULL)
+        return NULL;
+    else {
+        if(nodeToFind < (*currNode)->data)
+        {
+            // Check if the current Node's left child exists. Check if it is equal.
+            if((*currNode)->leftChild != NULL) {
+                if((*currNode)->leftChild->data == nodeToFind)
+                    return currNode;
+                else
+                    findParent(&(*currNode)->leftChild, nodeToFind);
+            } 
+            else {
+                return NULL;
+            }   
+        }
+        else if(nodeToFind > (*currNode)->data)
+        {
+            if((*currNode)->rightChild != NULL) {
 
+            }
+        }
+    }
 }
 void deleteNode(NODE ** ROOT, int data)
 {
