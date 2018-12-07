@@ -101,12 +101,30 @@ void deleteNode(NODE ** ROOT, int data)
         printf("Node was not found and could not delete from tree.\n");
         return;
     }
-    // There are three cases for deleting a Node.
-    // 1. Node we're deleting has no Children.
-    // 2. Node we're deleting has 1 child.
-    // 3. Node we're deleting has 2 children.
-    if(*ROOT == NULL) // First check if Node is NULL.
-        return;
+    else {
+        // There are three cases for deleting a Node.
+        // 1. Node we're deleting has no Children.
+        // 2. Node we're deleting has 1 child.
+        // 3. Node we're deleting has 2 children.
+        if(data == (*ROOT)->data)
+        {
+            if((*ROOT)->leftChild == NULL && (*ROOT)->rightChild == NULL) // One Child
+            {
+                free(*ROOT);
+                *ROOT = NULL;
+                return;
+            }
+        }
+        else if(data < (*ROOT)->data)
+        {
+
+        }
+        else if(data > (*ROOT)->data)
+        {
+
+        }
+    }
+    
 }
 
 int main(void)
