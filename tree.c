@@ -117,11 +117,17 @@ void deleteNode(NODE ** ROOT, int data)
         }
         else if(data < (*ROOT)->data)
         {
-
+            if((*ROOT)->leftChild != NULL)
+                deleteNode((*ROOT)->leftChild, data);
+            else
+                return;
         }
         else if(data > (*ROOT)->data)
         {
-
+            if((*ROOT)->rightChild != NULL)
+                deleteNode((*ROOT)->rightChild, data);
+            else
+                return;
         }
     }
     
