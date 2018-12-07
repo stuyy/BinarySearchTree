@@ -115,11 +115,16 @@ void deleteNode(NODE ** ROOT, int data)
             }
             else if((*ROOT)->leftChild != NULL && (*ROOT)->rightChild == NULL) // Case #2: Left Child Exists, Right Child Does not.
             {
+                // Since the left child exists, we need the parent of the child.
                 
+                return;
             }
-            else if(((*ROOT)->rightChild == NULL) && (*ROOT)->leftChild != NULL) // Case #2: Right Child Exists, Left Child Does not.
+            else if((*ROOT)->rightChild != NULL && (*ROOT)->leftChild == NULL) // Case #2: Right Child Exists, Left Child Does not.
             {
-                
+                NODE * temp = (*ROOT)->rightChild;
+                (*ROOT) = temp;
+                free((*ROOT)->rightChild);
+                return;
             }
         }
         else if(data < (*ROOT)->data)
@@ -143,12 +148,15 @@ void deleteNode(NODE ** ROOT, int data)
 int main(void)
 {
     NODE * ROOT = NULL;
+    insertTree(&ROOT, 5);
+    insertTree(&ROOT, 7);
+    insertTree(&ROOT, 2);
+    insertTree(&ROOT, 3);
+
+    deleteNode(&ROOT, 2);
+
     insertTree(&ROOT, 4);
     insertTree(&ROOT, 2);
-    insertTree(&ROOT, 6);
-
-    deleteNode(&ROOT, 4);
-
     printInorder(&ROOT);
     return 0;
 }
