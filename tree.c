@@ -107,8 +107,10 @@ NODE * findMaxNode(NODE ** ROOT)
     return tempNode;
 }
 
-NODE * findParent(NODE ** currNode, int nodeToFind)
+NODE * findParent(NODE ** currNode, NODE ** ROOT, int nodeToFind)
 {
+    if((*ROOT)->data == nodeToFind)
+        return *ROOT;
     if(currNode == NULL)
         return NULL;
     else {
@@ -117,19 +119,23 @@ NODE * findParent(NODE ** currNode, int nodeToFind)
             // Check if the current Node's left child exists. Check if it is equal.
             if((*currNode)->leftChild != NULL) {
                 if((*currNode)->leftChild->data == nodeToFind)
-                    return currNode;
+                    return *currNode;
                 else
-                    findParent(&(*currNode)->leftChild, nodeToFind);
+                    findParent(&(*currNode)->leftChild, ROOT, nodeToFind);
             } 
-            else {
+            else
                 return NULL;
-            }   
         }
         else if(nodeToFind > (*currNode)->data)
         {
             if((*currNode)->rightChild != NULL) {
-
+                if((*currNode)->rightChild->data == nodeToFind)
+                    return *currNode;
+                else
+                    findParent(&(*currNode)->rightChild, ROOT, nodeToFind);
             }
+            else
+                return NULL;
         }
     }
 }
@@ -205,5 +211,7 @@ int main(void)
     printInorder(&ROOT);
     NODE * min = findMinimumNode(&ROOT);
     printf("Min: %d\n", min->data);
+    NODE * parent = findParent(&ROOT, &ROOT, 10);
+    printf("Parent: %d\n", parent->data);
     return 0;
 }
