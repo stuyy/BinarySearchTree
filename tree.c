@@ -88,6 +88,16 @@ NODE * searchTree(NODE ** ROOT, int dataToFind)
     }
 }
 
+// Function finds the minimum node of a Subtree.
+NODE * findMinimumNode(NODE ** ROOT)
+{
+    NODE * tempNode = *ROOT;
+    while(tempNode->leftChild != NULL)
+        tempNode = tempNode->leftChild;
+    
+    return tempNode;
+}
+
 NODE * findParent()
 {
 
@@ -110,21 +120,25 @@ void deleteNode(NODE ** ROOT, int data)
             if((*ROOT)->leftChild == NULL && (*ROOT)->rightChild == NULL) // Case #1: Current Root of Subtree has NO Children.
             {
                 free(*ROOT);
-                *ROOT = NULL;
                 return;
             }
             else if((*ROOT)->leftChild != NULL && (*ROOT)->rightChild == NULL) // Case #2: Left Child Exists, Right Child Does not.
             {
                 // Since the left child exists, we need the parent of the child.
-                
+                NODE * temp = (*ROOT)->leftChild;
+                (*ROOT) = temp;
+                free((*ROOT)->leftChild);
                 return;
             }
             else if((*ROOT)->rightChild != NULL && (*ROOT)->leftChild == NULL) // Case #2: Right Child Exists, Left Child Does not.
             {
-                NODE * temp = (*ROOT)->rightChild;
-                (*ROOT) = temp;
-                free((*ROOT)->rightChild);
+                NODE * temp = (*ROOT)->rightChild; // Create a pointer to the current Root's Right Child.
+                (*ROOT) = temp; // Set the current root to it's right child.
+                free((*ROOT)->rightChild); // Free the right child from memory.
                 return;
+            }
+            else { // Case #3: Two Children.
+
             }
         }
         else if(data < (*ROOT)->data)
@@ -142,21 +156,23 @@ void deleteNode(NODE ** ROOT, int data)
                 return;
         }
     }
-    
 }
 
 int main(void)
 {
     NODE * ROOT = NULL;
-    insertTree(&ROOT, 5);
+    insertTree(&ROOT, 10);
+    insertTree(&ROOT, 15);
     insertTree(&ROOT, 7);
-    insertTree(&ROOT, 2);
-    insertTree(&ROOT, 3);
-
-    deleteNode(&ROOT, 2);
-
+    insertTree(&ROOT, 5);
+    insertTree(&ROOT, 9);
+    insertTree(&ROOT, 6);
     insertTree(&ROOT, 4);
     insertTree(&ROOT, 2);
     printInorder(&ROOT);
+    deleteNode(&ROOT, 4);
+    printInorder(&ROOT);
+    NODE * min = findMinimumNode(&ROOT);
+    printf("Min: %d\n", min->data);
     return 0;
 }
