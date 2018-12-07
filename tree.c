@@ -41,6 +41,7 @@ void insertTree(NODE ** ROOT, int data)
 // Inorder tree traversal. Prints Left, Root, Right.
 void printInorder(NODE ** ROOT)
 {
+    printf("Hello?\n");
     if(*ROOT == NULL)
         return;
     
@@ -87,17 +88,25 @@ NODE * searchTree(NODE ** ROOT, int dataToFind)
             searchTree(&(*ROOT)->rightChild, dataToFind);
     }
 }
+
+NODE * findParent()
+{
+
+}
 void deleteNode(NODE ** ROOT, int data)
 {
-    NODE * nodeToDelete = searchTree(data);
+    NODE * nodeToDelete = searchTree(ROOT, data);
     if(nodeToDelete == NULL)
     {
         printf("Node was not found and could not delete from tree.\n");
         return;
     }
-    else {
-        
-    }
+    // There are three cases for deleting a Node.
+    // 1. Node we're deleting has no Children.
+    // 2. Node we're deleting has 1 child.
+    // 3. Node we're deleting has 2 children.
+    if(*ROOT == NULL) // First check if Node is NULL.
+        return;
 }
 
 int main(void)
@@ -107,17 +116,9 @@ int main(void)
     insertTree(&ROOT, 2);
     insertTree(&ROOT, 6);
 
-    if(isEmpty(&ROOT))
-        printf("The root is empty.\n");
-    else {
-        printf("The root is %d\n", ROOT->data);
-        printf("The root's left is %d\n", ROOT->leftChild->data);
-        printf("The root's right is %d\n", ROOT->rightChild->data);
-    }
-    NODE * node = searchTree(&ROOT, 6);
-    if(node != NULL)
-        printf("%d was found.\n", node->data);
-    else
-        printf("Node not found.\n");
+    deleteNode(&ROOT, 6);
+    deleteNode(&ROOT, 2);
+
+    printInorder(&ROOT);
     return 0;
 }
