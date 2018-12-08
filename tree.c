@@ -193,13 +193,11 @@ int nodeCount(NODE ** ROOT)
     if(*ROOT == NULL)
         return 0;
     
-    int count = 0;
+    int count = 1;
     if((*ROOT)->leftChild != NULL)
-        count++;
-    count += nodeCount(&(*ROOT)->leftChild);
+        count += nodeCount(&(*ROOT)->leftChild);
     if((*ROOT)->rightChild != NULL)
-        count++;
-    count += nodeCount(&(*ROOT)->rightChild);
+        count += nodeCount(&(*ROOT)->rightChild);
     return count;
 }
 int isComplete(NODE ** ROOT)
@@ -214,23 +212,9 @@ int main(void)
     insertTree(&ROOT, 17);
     insertTree(&ROOT, 45);
     insertTree(&ROOT, 37);
-    insertTree(&ROOT, 71);
-    insertTree(&ROOT, 67);
-    insertTree(&ROOT, 82);
-    insertTree(&ROOT, 10);
-    insertTree(&ROOT, 27);
-    insertTree(&ROOT, 3);
-    insertTree(&ROOT, 15);
+    
     printInorder(&ROOT);
-
-    deleteNode(&ROOT, 15);
-    deleteNode(&ROOT, 3);
-    deleteNode(&ROOT, 10);
-    deleteNode(&ROOT, 17);
-    deleteNode(&ROOT, 45);
-    insertTree(&ROOT, 13);
-    printInorder(&ROOT);
-    int num = nodeCount(&ROOT)+1;
+    int num = nodeCount(&ROOT);
     printf("%d\n", num);
     return 0;
 }
