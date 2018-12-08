@@ -141,77 +141,79 @@ NODE * findParent(NODE ** currNode, NODE ** ROOT, int nodeToFind)
 }
 void deleteNode(NODE ** ROOT, int data)
 {
-    NODE * nodeToDelete = searchTree(ROOT, data);
-    if(nodeToDelete == NULL)
+    printf("Root: %d\n", (*ROOT)->data);
+    if(data == (*ROOT)->data)
     {
-        printf("Node was not found and could not delete from tree.\n");
-        return;
-    }
-    else {
-        // There are three cases for deleting a Node.
-        // 1. Node we're deleting has no Children.
-        // 2. Node we're deleting has 1 child.
-        // 3. Node we're deleting has 2 children.
-        if(data == (*ROOT)->data)
+        if((*ROOT)->leftChild == NULL && (*ROOT)->rightChild == NULL) // Case #1: Current Root of Subtree has NO Children.
         {
-            if((*ROOT)->leftChild == NULL && (*ROOT)->rightChild == NULL) // Case #1: Current Root of Subtree has NO Children.
-            {
-                free(*ROOT);
-                return;
-            }
-            else if((*ROOT)->leftChild != NULL && (*ROOT)->rightChild == NULL) // Case #2: Left Child Exists, Right Child Does not.
-            {
-                // Since the left child exists, we need the parent of the child.
-                NODE * temp = (*ROOT)->leftChild;
-                (*ROOT) = temp;
-                free((*ROOT)->leftChild);
-                return;
-            }
-            else if((*ROOT)->rightChild != NULL && (*ROOT)->leftChild == NULL) // Case #2: Right Child Exists, Left Child Does not.
-            {
-                NODE * temp = (*ROOT)->rightChild; // Create a pointer to the current Root's Right Child.
-                (*ROOT) = temp; // Set the current root to it's right child.
-                free((*ROOT)->rightChild); // Free the right child from memory.
-                return;
-            }
-            else { // Case #3: Two Children.
-
-            }
+            printf("Deleting %d\n", (*ROOT)->data);
+            free(*ROOT);
+            *ROOT = NULL;
+            return;
         }
-        else if(data < (*ROOT)->data)
+        else if((*ROOT)->leftChild != NULL && (*ROOT)->rightChild == NULL) // Case #2: Left Child Exists, Right Child Does not.
         {
-            if((*ROOT)->leftChild != NULL)
-                deleteNode(&(*ROOT)->leftChild, data);
-            else
-                return;
+            // Since the left child exists, we need the parent of the child.
+            NODE * temp = (*ROOT)->leftChild;
+            (*ROOT) = temp;
+            free((*ROOT)->leftChild);
+            (*ROOT)->leftChild = NULL;
+            return;
         }
-        else if(data > (*ROOT)->data)
+        else if((*ROOT)->rightChild != NULL && (*ROOT)->leftChild == NULL) // Case #2: Right Child Exists, Left Child Does not.
         {
-            if((*ROOT)->rightChild != NULL)
-                deleteNode(&(*ROOT)->rightChild, data);
-            else
-                return;
+            NODE * temp = (*ROOT)->rightChild; // Create a pointer to the current Root's Right Child.
+            (*ROOT) = temp; // Set the current root to it's right child.
+            free((*ROOT)->rightChild); // Free the right child from memory.
+            (*ROOT)->rightChild = NULL;
+            return;
+        }
+        else { // Case #3: Two Children.
+            NODE * min = findMinimumNode(&(*ROOT)->rightChild);
+            printf("Min: %d\n", min->data);
+            int minValue = min->data;
+            (*ROOT)->data = minValue;
+            deleteNode(&(*ROOT)->rightChild, minValue);
         }
     }
+    else if(data < (*ROOT)->data)
+    {
+        if((*ROOT)->leftChild != NULL)
+            deleteNode(&(*ROOT)->leftChild, data);
+        else
+            return;
+    }
+    else if(data > (*ROOT)->data)
+    {
+        if((*ROOT)->rightChild != NULL)
+            deleteNode(&(*ROOT)->rightChild, data);
+        else
+            return;
+    }
+    
 }
 
 int main(void)
 {
     NODE * ROOT = NULL;
+    insertTree(&ROOT, 35);
+    insertTree(&ROOT, 17);
+    insertTree(&ROOT, 45);
+    insertTree(&ROOT, 37);
+    insertTree(&ROOT, 71);
+    insertTree(&ROOT, 67);
+    insertTree(&ROOT, 82);
     insertTree(&ROOT, 10);
+    insertTree(&ROOT, 27);
+    insertTree(&ROOT, 3);
     insertTree(&ROOT, 15);
-    insertTree(&ROOT, 7);
-    insertTree(&ROOT, 5);
-    insertTree(&ROOT, 9);
-    insertTree(&ROOT, 6);
-    insertTree(&ROOT, 4);
-    insertTree(&ROOT, 2);
     printInorder(&ROOT);
-    deleteNode(&ROOT, 4);
+
+    deleteNode(&ROOT, 15);
+    deleteNode(&ROOT, 3);
+    deleteNode(&ROOT, 10);
+    deleteNode(&ROOT, 17);
+    deleteNode(&ROOT, 45);
     printInorder(&ROOT);
-    NODE * min = findMinimumNode(&ROOT);
-    printf("Min: %d\n", min->data);
-    NODE * parent = findParent(&ROOT, &ROOT, 10);
-    printf("Parent: %d\n", parent->data);
     return 0;
 }
