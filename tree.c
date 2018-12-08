@@ -107,10 +107,8 @@ NODE * findMaxNode(NODE ** ROOT)
     return tempNode;
 }
 
-NODE * findParent(NODE ** currNode, NODE ** ROOT, int nodeToFind)
+NODE * findParent(NODE ** currNode, int nodeToFind)
 {
-    if((*ROOT)->data == nodeToFind)
-        return *ROOT;
     if(currNode == NULL)
         return NULL;
     else {
@@ -121,7 +119,7 @@ NODE * findParent(NODE ** currNode, NODE ** ROOT, int nodeToFind)
                 if((*currNode)->leftChild->data == nodeToFind)
                     return *currNode;
                 else
-                    findParent(&(*currNode)->leftChild, ROOT, nodeToFind);
+                    findParent(&(*currNode)->leftChild, nodeToFind);
             } 
             else
                 return NULL;
@@ -132,7 +130,7 @@ NODE * findParent(NODE ** currNode, NODE ** ROOT, int nodeToFind)
                 if((*currNode)->rightChild->data == nodeToFind)
                     return *currNode;
                 else
-                    findParent(&(*currNode)->rightChild, ROOT, nodeToFind);
+                    findParent(&(*currNode)->rightChild, nodeToFind);
             }
             else
                 return NULL;
@@ -141,12 +139,10 @@ NODE * findParent(NODE ** currNode, NODE ** ROOT, int nodeToFind)
 }
 void deleteNode(NODE ** ROOT, int data)
 {
-    printf("Root: %d\n", (*ROOT)->data);
     if(data == (*ROOT)->data)
     {
         if((*ROOT)->leftChild == NULL && (*ROOT)->rightChild == NULL) // Case #1: Current Root of Subtree has NO Children.
         {
-            printf("Deleting %d\n", (*ROOT)->data);
             free(*ROOT);
             *ROOT = NULL;
             return;
@@ -170,7 +166,6 @@ void deleteNode(NODE ** ROOT, int data)
         }
         else { // Case #3: Two Children.
             NODE * min = findMinimumNode(&(*ROOT)->rightChild);
-            printf("Min: %d\n", min->data);
             int minValue = min->data;
             (*ROOT)->data = minValue;
             deleteNode(&(*ROOT)->rightChild, minValue);
