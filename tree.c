@@ -200,6 +200,7 @@ int nodeCount(NODE ** ROOT)
         count += nodeCount(&(*ROOT)->rightChild);
     return count;
 }
+
 int isComplete(NODE ** ROOT)
 {
 
