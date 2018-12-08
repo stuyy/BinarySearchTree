@@ -204,17 +204,3 @@ int isComplete(NODE ** ROOT)
 {
 
 }
-
-int main(void)
-{
-    NODE * ROOT = NULL;
-    insertTree(&ROOT, 35);
-    insertTree(&ROOT, 17);
-    insertTree(&ROOT, 45);
-    insertTree(&ROOT, 37);
-    
-    printInorder(&ROOT);
-    int num = nodeCount(&ROOT);
-    printf("%d\n", num);
-    return 0;
-}
