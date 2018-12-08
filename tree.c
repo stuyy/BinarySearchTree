@@ -188,6 +188,25 @@ void deleteNode(NODE ** ROOT, int data)
     
 }
 
+int nodeCount(NODE ** ROOT)
+{
+    if(*ROOT == NULL)
+        return 0;
+    
+    int count = 0;
+    if((*ROOT)->leftChild != NULL)
+        count++;
+    count += nodeCount(&(*ROOT)->leftChild);
+    if((*ROOT)->rightChild != NULL)
+        count++;
+    count += nodeCount(&(*ROOT)->rightChild);
+    return count;
+}
+int isComplete(NODE ** ROOT)
+{
+
+}
+
 int main(void)
 {
     NODE * ROOT = NULL;
@@ -209,6 +228,9 @@ int main(void)
     deleteNode(&ROOT, 10);
     deleteNode(&ROOT, 17);
     deleteNode(&ROOT, 45);
+    insertTree(&ROOT, 13);
     printInorder(&ROOT);
+    int num = nodeCount(&ROOT)+1;
+    printf("%d\n", num);
     return 0;
 }
