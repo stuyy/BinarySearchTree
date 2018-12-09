@@ -1,4 +1,4 @@
-# BinarySearchTree
+# Binary Search Tree
 
 ## This is a Binary Search Tree written by Anson Foong
 
