@@ -9,9 +9,16 @@ char * copyString(char * str)
     return copy;
 }
 
-char * removeNewline(char * str)
+char *  removeNewline(char * str)
 {
-    
+    int i = 0;
+    while(str[i] != 0)
+    {
+        if(str[i] == '\n')
+            str[i] = '\0';
+        i++;
+    }
+    return str;
 }
 int main(void)
 {
@@ -25,7 +32,8 @@ int main(void)
         printf("Command: ");
         fgets(command, 100, stdin);
         char * copy = copyString(command);
-        char * token = strtok(copy, " ");
+        char * token = removeNewline(strtok(copy, " "));
+        printf("Token: %s\n", token);
         if(strcmp(token, "ins") == 0)
         {
             int data = atoi(strtok(NULL, " "));
@@ -40,21 +48,11 @@ int main(void)
             else
                 printf("Node not found.\n");
         }
-        else if(strcmp(token, "in\n") == 0)
-        {
-            printInorder(&ROOT);
-            printf("\n");
-        }
-        else if(strcmp(token, "pre\n") == 0)
-        {
-            printPreorder(&ROOT);
-            printf("\n");
-        }
-        else if(strcmp(token, "post\n") == 0)
-        {
-            printPostorder(&ROOT);
-            printf("\n");
-        }
+        else if(strcmp(token, "in") == 0) printInorder(&ROOT);
+        else if(strcmp(token, "pre") == 0) printPreorder(&ROOT);
+        else if(strcmp(token, "post") == 0) printPostorder(&ROOT);
+        else if(strcmp(token, "full") == 0);
+        printf("\n");
     }
     return 0;
 }
