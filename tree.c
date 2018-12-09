@@ -205,3 +205,15 @@ int isComplete(NODE ** ROOT)
 {
 
 }
+
+int isFull(NODE ** ROOT)
+{
+    if(*ROOT == NULL)
+        return 1;
+    else if((*ROOT)->leftChild == NULL && (*ROOT)->rightChild == NULL)
+        return 1;
+    else if((*ROOT)->leftChild != NULL && (*ROOT)->rightChild != NULL)
+        return isFull(&(*ROOT)->leftChild) && isFull(&(*ROOT)->rightChild);
+    
+    return 0;
+}

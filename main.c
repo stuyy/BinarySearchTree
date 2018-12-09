@@ -33,25 +33,32 @@ int main(void)
         fgets(command, 100, stdin);
         char * copy = copyString(command);
         char * token = removeNewline(strtok(copy, " "));
-        printf("Token: %s\n", token);
         if(strcmp(token, "ins") == 0)
         {
             int data = atoi(strtok(NULL, " "));
             insertTree(&ROOT, data);
-            printf("Inserted %d\n", data);
+            printf("Inserted %d", data);
         }
         else if(strcmp(token, "del") == 0)
         {
             int data = atoi(strtok(NULL, " "));
             if(searchTree(&ROOT, data) != NULL)
                 deleteNode(&ROOT, data);
-            else
-                printf("Node not found.\n");
         }
         else if(strcmp(token, "in") == 0) printInorder(&ROOT);
         else if(strcmp(token, "pre") == 0) printPreorder(&ROOT);
         else if(strcmp(token, "post") == 0) printPostorder(&ROOT);
-        else if(strcmp(token, "full") == 0);
+        else if(strcmp(token, "full") == 0)
+        {
+            if(isFull(&ROOT))
+                printf("Tree is full!");
+            else
+                printf("Tree is not full");
+        }
+        else if(strcmp(token, "complete") == 0)
+        {
+            
+        }
         printf("\n");
     }
     return 0;
