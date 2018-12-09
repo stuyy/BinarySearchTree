@@ -201,9 +201,14 @@ int nodeCount(NODE ** ROOT)
     return count;
 }
 
-int isComplete(NODE ** ROOT)
+int isComplete(NODE ** ROOT, int index, int nodes)
 {
-
+    if(*ROOT == NULL)
+        return 1;
+    if(index >= nodes)
+        return 0; // False.
+    
+    return isComplete(&(*ROOT)->leftChild, 2*index + 1, nodes) && isComplete(&(*ROOT)->rightChild, 2*index+2, nodes);
 }
 
 int isFull(NODE ** ROOT)

@@ -57,8 +57,14 @@ int main(void)
         }
         else if(strcmp(token, "complete") == 0)
         {
-            
+            int nodes = nodeCount(&ROOT);
+            if(isComplete(&ROOT, 0, nodes))
+                printf("Tree is complete!");
+            else
+                printf("Tree is not complete!");
         }
+        else if(strcmp(token, "root") == 0)
+            printf("ROOT: %d\n", ROOT->data);
         printf("\n");
     }
     return 0;
