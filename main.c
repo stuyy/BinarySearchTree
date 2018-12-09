@@ -34,7 +34,11 @@ int main(void)
         }
         else if(strcmp(token, "del") == 0)
         {
-            
+            int data = atoi(strtok(NULL, " "));
+            if(searchTree(&ROOT, data) != NULL)
+                deleteNode(&ROOT, data);
+            else
+                printf("Node not found.\n");
         }
         else if(strcmp(token, "in\n") == 0)
         {
