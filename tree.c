@@ -222,3 +222,28 @@ int isFull(NODE ** ROOT)
     
     return 0;
 }
+
+int getNodeDepth(NODE ** ROOT, int data, int level)
+{
+    if(*ROOT == NULL)
+        return 0;
+    if((*ROOT)->data == data)
+        return level;
+    else {
+        if(data < (*ROOT)->data)
+        {
+            int nextLevel = getNodeDepth(&(*ROOT)->leftChild, data, level+1);
+            if(nextLevel != 0)
+                return nextLevel;
+        }
+        else if(data > (*ROOT)->data)
+        {
+            int nextLevel = getNodeDepth(&(*ROOT)->rightChild, data, level+1);
+            if(nextLevel != 0)
+                return nextLevel;
+        }
+        else {
+            return 0;
+        }
+    }
+}

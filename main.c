@@ -9,7 +9,7 @@ char * copyString(char * str)
     return copy;
 }
 
-char *  removeNewline(char * str)
+char * removeNewline(char * str)
 {
     int i = 0;
     while(str[i] != 0)
@@ -65,6 +65,13 @@ int main(void)
         }
         else if(strcmp(token, "root") == 0)
             printf("ROOT: %d\n", ROOT->data);
+        else if(strcmp(token, "level") == 0)
+        {
+            int data = atoi(strtok(NULL, " "));
+            printf("Trying to find the depth of %d\n", data);
+            int level = getNodeDepth(&ROOT, data, 1);
+            printf("Level: %d\n", level);
+        }
         printf("\n");
     }
     return 0;
