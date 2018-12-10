@@ -264,5 +264,11 @@ int getHeight(NODE ** ROOT)
 
 int isPerfect(NODE ** ROOT, int depth, int level)
 {
-
+    if(*ROOT == NULL)
+        return 1;
+    else {
+        int leftHeight = getHeight(&(*ROOT)->leftChild);
+        int rightHeight = getHeight(&(*ROOT)->rightChild);
+        printf("Height of Left: %d and Height of Right: %d\n", leftHeight, rightHeight);
+    }
 }

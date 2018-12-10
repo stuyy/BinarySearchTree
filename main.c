@@ -77,6 +77,7 @@ int main(void)
             int height = getHeight(&ROOT);
             printf("Height of Tree: %d", height);
         }
+        
         printf("\n");
     }
     return 0;
