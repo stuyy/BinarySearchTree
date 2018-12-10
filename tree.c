@@ -247,3 +247,22 @@ int getNodeDepth(NODE ** ROOT, int data, int level)
         }
     }
 }
+
+int getHeight(NODE ** ROOT)
+{
+    if(*ROOT == NULL)
+        return 0;
+    else {
+        int depthOfLeft = getHeight(&(*ROOT)->leftChild);
+        int depthOfRight = getHeight(&(*ROOT)->rightChild);
+        if(depthOfLeft > depthOfRight)
+            return (depthOfLeft + 1);
+        else
+            return depthOfRight + 1;
+    }
+}
+
+int isPerfect(NODE ** ROOT, int depth, int level)
+{
+
+}

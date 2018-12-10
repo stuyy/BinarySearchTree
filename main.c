@@ -72,6 +72,11 @@ int main(void)
             int level = getNodeDepth(&ROOT, data, 1);
             printf("Level: %d\n", level);
         }
+        else if(strcmp(token, "height") == 0)
+        {
+            int height = getHeight(&ROOT);
+            printf("Height of Tree: %d", height);
+        }
         printf("\n");
     }
     return 0;
